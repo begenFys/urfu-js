@@ -5,4 +5,4 @@
 
 **Группа:** КНМО-101 (МЕН-120206)
 
-**tg:** @begenFys
+**tg:** [@begenFys](https://t.me/begenFys)
