@@ -18,6 +18,7 @@ node huffman.js code <input.txt> <output.txt>
 
 **<output.txt>** файл куда записать закодированный текст (*output_с.txt*)
 
+**Output:**
 _Также в папке, в которой запускался код создаётся decode.json, в котором приведены коды  для каждого символа_
 
 ---
@@ -31,6 +32,8 @@ node huffman.js decode <input.txt> <decode.json> <output.txt>
 **<input.txt> -** файл, в котором находится исходный  (закодированный) текст
 
 **<decode.json> -** вспомогательный файл
+
+**Output:**
 
 **<output.txt> -** файл куда записать раскодированный текст
 
