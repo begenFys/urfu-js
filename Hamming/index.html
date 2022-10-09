@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamming code</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Hamming code</h1>
+  
+  <div>
+    <label for="bites">4 bites:</label>
+    <input type="text" maxlength="4" name="bites" id="textCode">
+    <button id="codeText">To code</button>
+  </div>
+
+  <br>
+
+  <div>
+    <label for="encode">Encoded Message:</label>
+    <input type="text" maxlength="7" id="textEncode" name="encode">
+    <button id="decodeText">To decode</button>
+  </div>
+
+  <br>
+  
+  <div>
+    <label for="decode">Decoded Message:</label>
+    <input type="text" maxlength="7" id="textDecode" name="decode">
+    <p>Error / Status: <span id="errorMessage"></span></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  margin-left: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 1.5s linear;
+}
+
+button:hover {
+  background-color: rgb(223, 176, 182);
+}
+
+p {
+  font-weight: bold;
+}
+
+p span {
+  font-weight: normal;
+}
