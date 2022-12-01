@@ -10,7 +10,8 @@ adr - адрес ячейки в памяти
 
 value - значение, которое надо положить
 
-Commands:
+**Commands:**
+
 ``` input adr value ``` - добавляет значение в ячейку
 
 ``` add adr1 adr2 adr3 ``` - &adr3 = &adr1 + &adr2
