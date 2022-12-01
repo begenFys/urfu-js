@@ -1,0 +1,23 @@
+put 400 0
+put 410 168 // INPUT first number (must be bigger than second)
+put 411 105 // INPUT second number
+point 500
+mod 411 410 411
+endpoint
+point 501
+mod 410 411 410
+endpoint
+point 502
+output 411
+exit
+endpoint
+point 503
+output 410
+exit
+endpoint
+je 410 400 502
+je 411 400 503
+jb 411 410 500
+je 411 410 500
+jl 411 410 501
+exit

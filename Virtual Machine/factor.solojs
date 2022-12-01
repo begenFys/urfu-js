@@ -1,0 +1,11 @@
+put 400 0
+put 401 1 // 
+put 402 100 // INPUT
+put 403 1
+point 404 // 404 - start of main loop
+mul 403 402 403
+sub 402 401 402
+endpoint
+jb 402 400 404
+output 403
+exit
