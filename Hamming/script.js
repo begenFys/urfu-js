@@ -19,17 +19,22 @@ const validText = (text, len) => { // проверяем чтобы текст �
   }
 }
 
-const sum = (arr) => arr.reduce((partialSum, a) => partialSum + a, 0);
-
 document.querySelector("#codeText").addEventListener("click", () => {
-  textCode = document.querySelector("#textCode").value;
+  let textCode = document.querySelector("#textCode").value;
   if (validText(textCode, 4)) {
-    textEncode = textCode;
-    let cir = [Number(textCode[3]), Number(textCode[3]), Number(textCode[3])]; // 1, 2 и 3 круг
-    cir[0] += Number(textCode[0]) + Number(textCode[1])
-    cir[1] += Number(textCode[1]) + Number(textCode[2])
-    cir[2] += Number(textCode[0]) + Number(textCode[2])
-    textEncode += String(cir[0] % 2) + String(cir[1] % 2) + String(cir[2] % 2);
+    let textEncode = textCode;
+    textCode = textCode.split('').map((el) => Number(el))
+    if (textCode.reduce((partialSum, a) => partialSum + a, 0) % 2 != 0) {
+      document.querySelector("#errorMessage").textContent = "Unreal!";
+      return;
+    }
+    document.querySelector("#errorMessage").textContent = "";
+    let cir = [textCode[3], textCode[3], textCode[3]]; // 1, 2 и 3 круг
+    cir[0] += textCode[0] + textCode[1]
+    cir[1] += textCode[1] + textCode[2]
+    cir[2] += textCode[0] + textCode[2]
+    cir = cir.map((el) => el % 2)
+    textEncode += cir.join('')
     document.querySelector("#textEncode").value = textEncode;
   } else {
     document.querySelector("#errorMessage").textContent = "Code length is 4 and only includes '0' or '1'";
@@ -39,14 +44,15 @@ document.querySelector("#codeText").addEventListener("click", () => {
 document.querySelector("#decodeText").addEventListener("click", () => {
   textDecode = document.querySelector("#textEncode").value;
   if (validText(textDecode, 7)) {
-    let cir = [Number(textDecode[3]), Number(textDecode[3]), Number(textDecode[3])]; // 1, 2 и 3 круг
-    cir[0] += Number(textDecode[0]) + Number(textDecode[1]) + Number(textDecode[4])
-    cir[1] += Number(textDecode[1]) + Number(textDecode[2]) + Number(textDecode[5])
-    cir[2] += Number(textDecode[0]) + Number(textDecode[2]) + Number(textDecode[6])
-    
-    cir = cir.map((el) => el % 2)
-    let cir_index = [[0, 1, 4], [1, 2, 5], [0, 2, 6]];
-
+    textDecode = textDecode.split('').map((el) => Number(el))
+    let cir = [textDecode[3], textDecode[3], textDecode[3]]; // 1, 2 и 3 круг
+    cir[0] += textDecode[0] + textDecode[4] + textDecode[6]
+    cir[1] += textDecode[1] + textDecode[4] + textDecode[5]
+    cir[2] += textDecode[2] + textDecode[5] + textDecode[6]
+    cir = cir.map((el) => el % 2);
+    let cir_index = [[4, 6, 0], [4, 5, 1], [5, 6, 2]];
+    // 0001111
+    //
     let err = 0;
     let errLast = -1;
     let errBite = -1;
@@ -57,7 +63,7 @@ document.querySelector("#decodeText").addEventListener("click", () => {
           errLast = i;
           errBite = cir_index[i][2];
         } else if (err == 2) {
-          errBite = cir_index[errLast].filter(x => cir_index[i].includes(x));
+          errBite = Number(cir_index[errLast].filter(x => cir_index[i].includes(x)));
         } else if (err == 3) {
           errBite = 3; // центр всех пересечений
         }
@@ -65,9 +71,10 @@ document.querySelector("#decodeText").addEventListener("click", () => {
     }
     
     if (err != 0) {
-      textDecode = textDecode.slice(0, errBite) + (textDecode[errBite] == "1" ? "0" : "1") + textDecode.slice(errBite+1)
+      console.log(errBite, typeof(errBite));
+      textDecode = textDecode.slice(0, errBite).join('') + (textDecode[errBite] == "1" ? "0" : "1") + textDecode.slice(errBite+1).join('');
       document.querySelector("#textDecode").value = textDecode;
-      document.querySelector("#errorMessage").textContent = `Zup in ${errBite+1}!`;
+      document.querySelector("#errorMessage").textContent = `Zup in ${Number(errBite)+1}!`;
     } else {
       document.querySelector("#textDecode").value = textDecode;
       document.querySelector("#errorMessage").textContent = "Correct!";

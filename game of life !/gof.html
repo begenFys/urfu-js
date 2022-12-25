@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game of Life</title>
+</head>
+<body>
+ 
+<canvas id="myCanvas" width="400px" height="400px" style="border:1px solid #d3d3d3;">
+</canvas>
+ 
+<script>
+	const fillSize = 20;
+	const cellSize = 20;
+	let currPop = new Array(fillSize);
+	let nextPop = new Array(fillSize);
+	
+	for(i=0; i< fillSize; i++){
+		currPop[i] = new Array(fillSize);
+		nextPop[i] = new Array(fillSize);
+	}
+	
+	let c = document.getElementById("myCanvas");
+	let ctx = c.getContext("2d");
+	
+	function init(){
+		for(i=0; i< fillSize; i++){
+			for(j=0; j< fillSize; j++){
+				currPop[i][j] = Math.round(Math.random())
+			}
+		}
+	}
+	function draw(){
+		for(i=0; i< fillSize; i++){
+			for(j=0; j< fillSize; j++){
+				if(currPop[i][j] == 1)
+					ctx.fillStyle = "#FF0000";
+				else
+					ctx.fillStyle = "#FFFFFF";
+				ctx.fillRect(i*cellSize, j*cellSize, cellSize, cellSize);
+			}
+		}
+	}
+	function neighbourCont(i,j){
+		num = 0;
+		for(l= -1; l <= 1; l++)
+			for(k = -1; k <=1; k++)
+				if((l != 0) || (k != 0))
+					num += currPop[(i+l+fillSize)%fillSize][(j+k+fillSize)%fillSize];
+		return num
+	}
+	function nextGen(){
+		for(i=0; i< fillSize; i++){
+			for(j=0; j< fillSize; j++){
+				nextPop[i][j] = 0;
+				nc = neighbourCont(i,j)
+				if(((currPop[i][j] == 0) && (nc ==3)) || ((currPop[i][j] == 1) && (nc < 4) && (nc > 1)))
+					nextPop[i][j] = 1;
+			}
+		}
+		for(i=0; i< fillSize; i++){
+			for(j=0; j< fillSize; j++){
+				currPop[i][j] = nextPop[i][j];
+			}
+		}
+	}
+	function step(){
+		nextGen();
+		draw();
+	}
+	
+	init();
+	draw();
+	let tm = setInterval(step, 1000) 
+</script>
+ 
+</body>
+</html>
